@@ -2,18 +2,40 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="600">
-  <title>GOES-19 GeoColor - Últimas 3 Horas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>GOES-19 GeoColor - Últimas 3h</title>
   <style>
-    body { background: #0d1117; color: #e6edf3; font-family: sans-serif; text-align: center; margin: 20px; }
-    video { max-width: 95%; border-radius: 8px; border: 1px solid #30363d; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    video {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
   </style>
 </head>
 <body>
-  <h2>GOES-19 GeoColor (Últimas 3 Horas)</h2>
-  <video autoplay loop muted playsinline controls>
-    <source src="goes_ultimas_3h.mp4" type="video/mp4">
-  </video>
-  <p>Atualizado automaticamente a cada 10 minutos.</p>
+  <video id="goesVideo" autoplay loop muted playsinline controls></video>
+  <script>
+    function carregarVideo() {
+      const video = document.getElementById('goesVideo');
+      video.src = 'goes_ultimas_3h.mp4?v=' + Date.now();
+      video.load();
+      video.play().catch(() => {});
+    }
+    carregarVideo();
+    // Atualiza o vídeo automaticamente a cada 10 minutos sem precisar recarregar a página
+    setInterval(carregarVideo, 10 * 60 * 1000);
+  </script>
 </body>
 </html>
